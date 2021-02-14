@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Beatnik</string>
+    <string name="bpm_value">%1$.1f</string>
+    <string name="bpm_unit">bpm</string>
+    <string name="bpm_nan">000.0</string>
+    <string name="nopeville">Can\'t do anything without permission to record audio :-( Tap to try again.</string>
+</resources>

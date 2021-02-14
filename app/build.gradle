@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
+    defaultConfig {
+        applicationId "re.bass.beatnik"
+        minSdkVersion 19
+        targetSdkVersion 24
+        versionCode 24
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndkConfig.abiFilters 'armeabi-v7a', 'arm64-v8a'
+        externalNativeBuild {
+            cmake {
+                targets 'beatnik_jni'
+                arguments '-DANDROID_STL=c++_static', '-DANDROID_TOOLCHAIN=clang'
+                cppFlags '-fexceptions', '-std=c++1z', '-Wall', '-Wextra',
+                         '-Wno-unused-parameter'
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                          'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path 'src/main/cpp/CMakeLists.txt'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:support-annotations:24.2.0'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support:support-annotations:24.2.0'
+}
